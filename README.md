@@ -90,39 +90,125 @@ The application includes the following functions:
 
 ## Usage
 
-### 1. Create Rule
-- Define a new rule using the custom syntax.
-- Input the rule string in the "Create Rule" section.
-- Click "Create Rule" to generate and store the AST.
 
-### 2. Combine Rules
-- Select multiple existing rules to combine.
-- Use the "Combine Rules" section to merge them into a single rule.
+# Rule Management System
 
-### 3. Evaluate Rule
-- Provide the AST JSON and user data in the "Evaluate Rule" section.
-- Click "Evaluate Rule" to check if the data satisfies the rule.
+This guide outlines the process of creating, combining, evaluating, and modifying rules using a custom syntax.
 
-### 4. Modify Rule
-- Select an existing rule to modify.
-- Update the rule string in the "Modify Rule" section.
-- Save the changes to update the AST.
+## 1. Create Rule
+### Purpose:
+Define a new rule using the custom syntax and convert it into an Abstract Syntax Tree (AST).
 
-### Sample Rules
+### Example Inputs:
 
-- **Rule 1**:
+#### Rule Example 1:
+```scss
+(age > 25 AND department == 'Engineering') OR (experience >= 5 AND salary > 70000)
+```
 
-    ```text
-    ((age > 30 AND department == 'Sales') OR (age < 25 AND department == 'Marketing')) 
-    AND (salary > 50000 OR experience > 5)
-    ```
+#### Rule Example 2:
+```arduino
+(department == 'Sales' AND salary >= 50000) AND experience < 10
+```
 
-- **Rule 2**:
+#### Rule Example 3:
+```scss
+(age < 35 AND department != 'HR') AND (experience > 3 OR salary >= 40000)
+```
 
-    ```text
-    ((age > 30 AND department == 'Marketing')) 
-    AND (salary > 20000 OR experience > 5)
-    ```
+---
+
+## 2. Combine Rules
+### Purpose:
+Merge multiple existing rules into a single rule.
+
+### Example Inputs:
+
+Select the following rules to combine:
+
+- **Rule 1**: 
+```scss
+(age > 25 AND department == 'Engineering') OR (experience >= 5 AND salary > 70000)
+```
+
+- **Rule 2**: 
+```arduino
+(department == 'Sales' AND salary >= 50000) AND experience < 10
+```
+
+- **Rule 3**: 
+```scss
+(age < 35 AND department != 'HR') AND (experience > 3 OR salary >= 40000)
+```
+
+---
+
+## 3. Evaluate Rule
+### Purpose:
+Check if a user's data satisfies a rule.
+
+### Example Inputs:
+
+#### AST JSON:
+Use the AST JSON generated from creating or combining rules (e.g., from Rule Example 1 or the combined rules in Combine Rules).
+
+#### Data JSON Examples:
+
+##### Data Example 1:
+```json
+{
+  "age": 30,
+  "department": "Engineering",
+  "salary": 80000,
+  "experience": 6
+}
+```
+
+##### Data Example 2:
+```json
+{
+  "age": 28,
+  "department": "Sales",
+  "salary": 55000,
+  "experience": 4
+}
+```
+
+##### Data Example 3:
+```json
+{
+  "age": 32,
+  "department": "Marketing",
+  "salary": 45000,
+  "experience": 5
+}
+```
+
+---
+
+## 4. Modify Rule
+### Purpose:
+Update an existing rule by changing its logic.
+
+### Example Inputs:
+
+Select a rule to modify:
+
+- **Choose an existing rule** (e.g., Rule Example 2 from the Create Rule section).
+
+#### New Rule String:
+```arduino
+(department == 'Marketing' OR department == 'Sales') AND salary >= 60000 AND experience <= 8
+```
+
+---
+
+### Note:
+- **Create Rule**: Input the rule strings into the "Enter Rule String" text area and create the rule.
+- **Combine Rules**: Select the rules by their IDs or names as they appear after creation.
+- **Evaluate Rule**: Paste the AST JSON into the "Enter AST JSON" area and the data JSON into the "Enter Data JSON" area before evaluating.
+- **Modify Rule**: Select the rule you wish to modify and input the new rule string in the provided text area.
+
 
 ### Attribute Catalog
 
