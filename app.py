@@ -112,13 +112,10 @@ elif app_mode == "Evaluate Rule":
                 st.write("**Rule String:**")
                 st.code(rule_string, language='plaintext')
                 ast_json = serialize_ast(ast)
-                st.write("**AST JSON:**")
-                st.json(ast_json)
+
             else:
                 ast_json = json.loads(ast_json_input)
                 ast = deserialize_ast(ast_json)
-                st.write("**AST JSON:**")
-                st.json(ast_json)
             result = evaluate_rule(ast, data)
             st.success(f"Evaluation Result: {result}")
         except json.JSONDecodeError as e:
