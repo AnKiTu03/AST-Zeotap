@@ -87,8 +87,6 @@ elif app_mode == "Evaluate Rule":
             ast = deserialize_ast(rule.ast_json)
             st.write(f"**Rule String (ID {rule.id}):**")
             st.code(rule.rule_string, language='plaintext')
-            st.write("**AST JSON:**")
-            st.json(rule.ast_json)
     elif input_type == "Enter Rule String":
         rule_string_input = st.text_area("Enter Rule String", height=150)
     else:
