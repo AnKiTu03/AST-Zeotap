@@ -58,17 +58,34 @@ elif app_mode == "Combine Rules":
 
 elif app_mode == "Evaluate Rule":
     st.header("Evaluate Rule")
-    ast_json_input = st.text_area("Enter AST JSON", height=150)
-    data_input = st.text_area("Enter Data JSON", value='{"age": 35, "department": "Sales", "salary": 60000, "experience": 3}', height=150)
+    input_type = st.radio("Select Input Type", ["Rule String", "AST JSON"])
+
+    if input_type == "Rule String":
+        rule_string_input = st.text_area("Enter Rule String", height=150)
+    else:
+        ast_json_input = st.text_area("Enter AST JSON", height=150)
+
+    data_input = st.text_area(
+        "Enter Data JSON",
+        value='{"age": 35, "department": "Sales", "salary": 60000, "experience": 3}',
+        height=150,
+    )
+
     if st.button("Evaluate Rule"):
         try:
-            ast_json = json.loads(ast_json_input)
             data = json.loads(data_input)
-            ast = deserialize_ast(ast_json)
+            if input_type == "Rule String":
+                rule_string = rule_string_input
+                ast = create_rule(rule_string)
+            else:
+                ast_json = json.loads(ast_json_input)
+                ast = deserialize_ast(ast_json)
             result = evaluate_rule(ast, data)
             st.success(f"Evaluation Result: {result}")
         except json.JSONDecodeError as e:
             st.error(f"JSON Decode Error: {e}")
+        except SyntaxError as e:
+            st.error(f"Syntax Error: {e}")
         except ValueError as e:
             st.error(f"Value Error: {e}")
 
